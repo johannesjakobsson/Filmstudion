@@ -1,4 +1,4 @@
-namespace Filmstudion.Models.Interfaces
+namespace Filmstudion.Models
 {
     public interface IFilmStudio
     {
