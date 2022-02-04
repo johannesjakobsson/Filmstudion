@@ -1,6 +1,4 @@
-using Filmstudion.Models.Interfaces;
-
-namespace Filmstudion.Models.FilmStudio
+namespace Filmstudion.Models
 {
     public class FilmStudio : IFilmStudio
     {

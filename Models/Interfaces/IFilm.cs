@@ -1,4 +1,4 @@
-namespace Filmstudion.Models.Interfaces
+namespace Filmstudion.Models
 {
     public interface IFilm
     {
@@ -7,6 +7,6 @@ namespace Filmstudion.Models.Interfaces
         public string Director { get; set; }
         public string Country { get; set; }
         public int ReleaseYear { get; set; }
-        public string FilmCopies { get; set; }
+        public int FilmCopies { get; set; }
     }
 }
