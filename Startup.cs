@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Filmstudion.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +33,11 @@ namespace Filmstudion
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddScoped<IRegisterFilmStudioRepository, RegisterFilmStudioRepository>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
