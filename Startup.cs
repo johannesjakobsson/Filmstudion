@@ -36,6 +36,7 @@ namespace Filmstudion
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IRegisterFilmStudioRepository, RegisterFilmStudioRepository>();
+            services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllers();

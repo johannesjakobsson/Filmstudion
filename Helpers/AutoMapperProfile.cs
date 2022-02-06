@@ -10,6 +10,8 @@ namespace Filmstudion.Helpers
         {
             CreateMap<RegisterFilmStudio, User>();
             CreateMap<RegisterFilmStudio, FilmStudio>();
+            CreateMap<UserRegister, User>();
+            CreateMap<User, UserResponse>();
         }
     }
 }

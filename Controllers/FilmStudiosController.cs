@@ -1,6 +1,8 @@
+using System;
 using AutoMapper;
 using Filmstudion.Models;
 using Filmstudion.Resources;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Filmstudion.Controllers
@@ -21,8 +23,15 @@ namespace Filmstudion.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterFilmStudio model)
         {
-            _repository.Register(model);
-            return Ok(_mapper.Map<FilmStudio>(model));
+            try
+            {
+                _repository.Register(model);
+                return Ok(_mapper.Map<FilmStudio>(model));
+            }
+            catch(Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
     }
 }
