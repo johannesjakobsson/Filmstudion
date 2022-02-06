@@ -1,12 +1,17 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+
 namespace Filmstudion.Models
 {
-    public class User : IUser
+    public class User : IdentityUser, IFilmStudio
     {
-        public int UserId { get; set; }
-        public string Username { get; set; }
+        public int UserId { get; set; } // Ta bort?
         public string Role { get; set; }
-        public bool IsAdmin { get; set; }
-        public string Password { get; set; }  
+        public bool IsAdmin { get; set; }  
         public int FilmStudioId { get; set; }
+        public string FilmStudioName { get; set; }
+        public string FilmStudioCity { get; set; }
+        public string ContactPerson { get; set; }
+        public List<FilmCopy> RentedFilmCopies { get; set; }
     }
 }
