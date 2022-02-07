@@ -35,8 +35,6 @@ namespace Filmstudion
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
-
             services.AddAuthentication()
                 .AddCookie()
                 .AddJwtBearer(cfg =>
@@ -51,6 +49,8 @@ namespace Filmstudion
 
             services.AddScoped<IFilmStudioRepository, FilmStudioRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFilmRepository, FilmRepository>();
+            services.AddScoped<IFilmCopyRepository, FilmCopyRepository>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllers();

@@ -57,6 +57,7 @@ namespace Filmstudion.Models
         }
         public User GetUser(string userName)
         {
+            _logger.LogInformation("Getting user by username");
             var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
             if (user == null) throw new Exception("User not found");
             return user;
@@ -64,6 +65,8 @@ namespace Filmstudion.Models
 
         public AuthenticateResponse Authenticate(UserAuthenticate model)
         {
+            _logger.LogInformation("Authenticates User or Filmstudio");
+
             var user = _context.Users.SingleOrDefault(x => x.UserName == model.UserName);
 
             //validate
