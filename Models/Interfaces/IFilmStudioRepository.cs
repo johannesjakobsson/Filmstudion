@@ -2,7 +2,7 @@ using Filmstudion.Resources;
 
 namespace Filmstudion.Models
 {
-    public interface IRegisterFilmStudioRepository
+    public interface IFilmStudioRepository
     {
         void Register(RegisterFilmStudio model);
     }

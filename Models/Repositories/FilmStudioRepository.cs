@@ -7,15 +7,15 @@ using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace Filmstudion.Models
 {
-    public class RegisterFilmStudioRepository : IRegisterFilmStudioRepository
+    public class FilmStudioRepository : IFilmStudioRepository
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger<RegisterFilmStudioRepository> _logger;
+        private readonly ILogger<FilmStudioRepository> _logger;
 
-        public RegisterFilmStudioRepository(AppDbContext context, 
+        public FilmStudioRepository(AppDbContext context, 
             IMapper mapper, 
-            ILogger<RegisterFilmStudioRepository> logger)
+            ILogger<FilmStudioRepository> logger)
         {
             _context = context;
             _mapper = mapper;
@@ -34,6 +34,7 @@ namespace Filmstudion.Models
 
             // map model to new user object
             var filmStudio = _mapper.Map<User>(model);
+            filmStudio.Role = "Filmstudio"; //Tillfällig lösning
 
             //hash password
             filmStudio.PasswordHash = BCryptNet.HashPassword(model.Password);
