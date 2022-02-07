@@ -2,6 +2,8 @@ using System;
 using AutoMapper;
 using Filmstudion.Models;
 using Filmstudion.Resources;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +11,13 @@ namespace Filmstudion.Controllers
 {
     [ApiController]
     [Route("api/filmstudio")] // Ändra till [controller]??? Men i kraven står det filmstudio
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] DEN HÄR STRÄNGEN SKA FINNAS DÄR DET BEHÖVS AUTHORIZATION
     public class FilmStudiosController : ControllerBase
     {
-        private IRegisterFilmStudioRepository _repository;
+        private IFilmStudioRepository _repository;
         private readonly IMapper _mapper;
 
-        public FilmStudiosController(IRegisterFilmStudioRepository repository, IMapper mapper)
+        public FilmStudiosController(IFilmStudioRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

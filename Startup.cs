@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Filmstudion.Models;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Filmstudion
@@ -35,8 +37,20 @@ namespace Filmstudion
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddScoped<IRegisterFilmStudioRepository, RegisterFilmStudioRepository>();
-            services.AddScoped<IRegisterUserRepository, RegisterUserRepository>();
+            services.AddAuthentication()
+                .AddCookie()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+                    };
+                });
+
+            services.AddScoped<IFilmStudioRepository, FilmStudioRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllers();
@@ -60,6 +74,7 @@ namespace Filmstudion
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

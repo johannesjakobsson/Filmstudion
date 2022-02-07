@@ -12,6 +12,7 @@ namespace Filmstudion.Helpers
             CreateMap<RegisterFilmStudio, FilmStudio>();
             CreateMap<UserRegister, User>();
             CreateMap<User, UserResponse>();
+            CreateMap<User, AuthenticateResponse>();
         }
     }
 }
