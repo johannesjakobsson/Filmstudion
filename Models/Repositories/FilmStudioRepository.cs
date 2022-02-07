@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Filmstudion.Resources;
@@ -22,6 +23,7 @@ namespace Filmstudion.Models
             _logger = logger;
         }
 
+        public IEnumerable<FilmStudio> AllFilmStudios { get { return _context.FilmStudios; } }
         public void Register(RegisterFilmStudio model)
         {
             _logger.LogInformation("Register new FilmStudio");
@@ -44,5 +46,6 @@ namespace Filmstudion.Models
             _context.Users.Add(filmStudio);
             _context.SaveChanges();
         }
+
     }
 }

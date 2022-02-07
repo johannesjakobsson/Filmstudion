@@ -14,13 +14,13 @@ namespace Filmstudion.Models
         public DbSet<FilmStudio> FilmStudios {get; set;}
         public DbSet<FilmCopy> FilmCopys {get; set;}
 
-/*         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Film>().HasData(new Film 
             { 
-                FilmId = "1", 
+                FilmId = 1, 
                 Name = "Hej", 
                 Director = "Hans", 
                 Country = "Sweden", 
@@ -29,28 +29,12 @@ namespace Filmstudion.Models
 
             modelBuilder.Entity<FilmStudio>().HasData(new FilmStudio 
             { 
-                FilmStudioId = "1",
+                FilmStudioId = 1,
                 FilmStudioName = "FilmStudio-Gotland",
                 FilmStudioCity = "Visby",
                 Email = "Gotland@Gotland.se"
             });
 
-            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
-            {
-                FilmCopyId = "1",
-                FilmId = "1"
-            });
-
-            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
-            {
-                FilmCopyId = "2",
-                FilmId = "1"
-            });
-            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
-            {
-                FilmCopyId = "3",
-                FilmId = "1"
-            }); 
-        } */
+        }
     }
 }
