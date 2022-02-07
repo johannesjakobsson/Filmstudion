@@ -34,6 +34,8 @@ namespace Filmstudion
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddAuthentication()
                 .AddCookie()
