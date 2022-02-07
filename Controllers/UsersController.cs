@@ -20,17 +20,11 @@ namespace Filmstudion.Controllers
     {
         private IUserRepository _repository;
         private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _config;
 
-        public UsersController(IUserRepository repository, IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        public UsersController(IUserRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _config = config;
         }
 
         [HttpPost("register")]
