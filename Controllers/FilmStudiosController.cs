@@ -69,7 +69,7 @@ namespace Filmstudion.Controllers
 
         [AllowAnonymous]
         [HttpGet("api/filmstudio/{id:int}")]
-        public IActionResult GetFilmStudioById(int id)
+        public IActionResult GetFilmStudioById(int id) // SKA RETURNERA EN ARRAY AV OBJEKT INTE BARA OBJEKT
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Filmstudion.Controllers
             }
             catch (Exception ex)
             {
-                 return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
         }
     }
