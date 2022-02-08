@@ -24,7 +24,8 @@ namespace Filmstudion.Models
         }
 
         public IEnumerable<FilmStudio> AllFilmStudios { get { return _context.FilmStudios; } }
-        public void Register(RegisterFilmStudioResource model)
+
+        public FilmStudio Register(RegisterFilmStudioResource model)
         {
             _logger.LogInformation("Register new FilmStudio");
 
@@ -35,17 +36,36 @@ namespace Filmstudion.Models
             }
 
             // map model to new user object
-            var filmStudio = _mapper.Map<User>(model);
-            filmStudio.Role = "Filmstudio"; //Tillfällig lösning
+            var filmStudioUser = _mapper.Map<User>(model);
+            filmStudioUser.Role = "Filmstudio"; //Tillfällig lösning
 
             //hash password
-            filmStudio.PasswordHash = BCryptNet.HashPassword(model.Password);
+            filmStudioUser.PasswordHash = BCryptNet.HashPassword(model.Password);
 
-            //save user and filmstudio
-            _context.FilmStudios.Add(_mapper.Map<FilmStudio>(model)); 
-            _context.Users.Add(filmStudio);
+            var filmStudio = _mapper.Map<FilmStudio>(model);
+
+            //save filmstudio
+            _context.FilmStudios.Add(filmStudio); 
             _context.SaveChanges();
+
+            //find filmstudio and set ID
+            var lastAddedStudio = _context.FilmStudios.FirstOrDefault(x => x.FilmStudioName == model.FilmStudioName);
+            filmStudioUser.FilmStudioId = lastAddedStudio.FilmStudioId;
+            filmStudio.FilmStudioId = lastAddedStudio.FilmStudioId;
+
+            //save user
+            _context.Users.Add(filmStudioUser);
+            _context.SaveChanges();
+
+            return filmStudio;
         }
+        public FilmStudio GetFilmStudioById(int id)
+        {
+            _logger.LogInformation("Get a filmstudio");
+
+            return _context.FilmStudios.FirstOrDefault(f => f.FilmStudioId == id);
+        }
+
 
     }
 }
