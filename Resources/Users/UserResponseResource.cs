@@ -3,7 +3,7 @@ using Filmstudion.Models;
 
 namespace Filmstudion.Resources
 {
-    public class UserResponse : IUser
+    public class UserResponseResource : IUser
     {
         public int UserId { get; set; }
         public string UserName { get; set; }

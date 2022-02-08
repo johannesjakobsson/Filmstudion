@@ -32,7 +32,7 @@ namespace Filmstudion.Controllers
         }
 
         [HttpPut]
-        public IActionResult AddFilm(CreateFilm model)
+        public IActionResult AddFilm(CreateFilmResource model)
         {
             try
             {

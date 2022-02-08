@@ -5,6 +5,6 @@ namespace Filmstudion.Models
     public interface IFilmRepository
     {
         public IEnumerable<Film> AllFilms { get;}
-        public Film AddFilm(CreateFilm model);
+        public Film AddFilm(CreateFilmResource model);
     }
 }

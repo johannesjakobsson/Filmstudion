@@ -24,7 +24,7 @@ namespace Filmstudion.Models
         }
 
         public IEnumerable<FilmStudio> AllFilmStudios { get { return _context.FilmStudios; } }
-        public void Register(RegisterFilmStudio model)
+        public void Register(RegisterFilmStudioResource model)
         {
             _logger.LogInformation("Register new FilmStudio");
 

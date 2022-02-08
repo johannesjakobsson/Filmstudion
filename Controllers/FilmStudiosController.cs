@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Filmstudion.Controllers
 {
     [ApiController] 
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //DEN HÄR STRÄNGEN SKA FINNAS DÄR DET BEHÖVS AUTHORIZATION
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //DEN HÄR STRÄNGEN SKA FINNAS DÄR DET BEHÖVS AUTHORIZATION
     public class FilmStudiosController : ControllerBase
     {
         private IFilmStudioRepository _filmStudioRepository;
@@ -26,8 +26,9 @@ namespace Filmstudion.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost("api/filmstudio/register")]
-        public IActionResult Register(RegisterFilmStudio model)
+        public IActionResult Register(RegisterFilmStudioResource model)
         {
             try
             {
@@ -39,12 +40,31 @@ namespace Filmstudion.Controllers
                 return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
         }
-
+        
+        [AllowAnonymous]
         [HttpGet("api/[controller]")]   
-        public IActionResult GetAllFilmstudios() // MÅSTE LÄGGA TILL AUTHENTICATION PÅ NÅGOT SÄTT. Just nu kan alla få all information om filmstudios
+        public IActionResult GetAllFilmstudios() 
         {
-            var studios = _filmStudioRepository.AllFilmStudios;
-            return Ok(studios.ToList());
+            try
+            {
+                var username = User.Identity.Name;
+                var user = _userRepository.GetUserWithoutException(username);
+                var studios = _filmStudioRepository.AllFilmStudios;
+
+                if(user == null || !user.IsAdmin)
+                {
+                    return Ok(_mapper.Map<GetAllFilmStudiosResponseResource[]>(studios));
+                }
+                else if(user.IsAdmin)
+                {
+                    return Ok(studios.ToList());
+                }
+                return BadRequest("Error getting all filmstudios");
+            }
+            catch (Exception ex)
+            {
+                 return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
         }
     }
 }
