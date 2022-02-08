@@ -16,6 +16,8 @@ namespace Filmstudion.Helpers
             CreateMap<CreateFilmResource, Film>();
             CreateMap<FilmStudio, FilmStudiosResponseResource>();
             CreateMap<Film, FilmResponseResource>();
+            CreateMap<EditFilmResource, Film>().ReverseMap();
+            CreateMap<Film, EditFilmResponseResource>();
         }
     }
 }

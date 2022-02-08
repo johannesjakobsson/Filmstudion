@@ -12,7 +12,7 @@ namespace Filmstudion.Models
 
         public DbSet<Film> Films {get; set;}
         public DbSet<FilmStudio> FilmStudios {get; set;}
-        public DbSet<FilmCopy> FilmCopys {get; set;}
+        public DbSet<FilmCopy> FilmCopies {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

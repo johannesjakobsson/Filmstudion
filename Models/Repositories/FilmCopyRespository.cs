@@ -18,7 +18,7 @@ namespace Filmstudion.Models
             _logger = logger;
         }
 
-        public IEnumerable<FilmCopy> AllFilmCopys { get { return _context.FilmCopys; } }
+        public IEnumerable<FilmCopy> AllFilmCopys { get { return _context.FilmCopies; } }
         public void CreateCopies(int filmId, int filmCopies)
         {
             _logger.LogInformation("Adding new film-copies");
@@ -27,10 +27,45 @@ namespace Filmstudion.Models
             {
                 var filmCopy = new FilmCopy();
                 filmCopy.FilmId = filmId;
-                _context.FilmCopys.Add(filmCopy);
-                _context.SaveChangesAsync();
+                _context.FilmCopies.Add(filmCopy);
+                _context.SaveChanges();
+            } 
+        }
+        public void CreateCopies(int filmId, int newFilmCopies, int oldAmountOfCopies)
+        {
+            _logger.LogInformation("Adding new film-copies");
+
+            for( int i = oldAmountOfCopies; i < newFilmCopies; i++)
+            {
+                var filmCopy = new FilmCopy();
+                filmCopy.FilmId = filmId;
+                _context.FilmCopies.Add(filmCopy);
+                _context.SaveChanges();
+            } 
+        }
+
+        public void DeleteCopies(int newCopies, IEnumerable<FilmCopy> currentCopies) 
+        {
+            // BÖR ÄVEN KONTROLLER ATT MAN INTE TAR BORT UTLÅNADE KOPIOR
+            _logger.LogInformation("Deleting old film-copies");
+
+            var counter = currentCopies.ToList().Count();
+            foreach(var copy in currentCopies)
+            {   
+                counter--;
+                _context.Remove(copy);
+                if(counter <= newCopies)
+                {
+                    break;
+                }
+                
+                _context.SaveChanges();
             }
-            
+        }
+
+        public IEnumerable<FilmCopy> GetFilmCopies(int filmId)
+        {
+            return _context.FilmCopies.Where(fc => fc.FilmId == filmId);
         }
     }
 }
