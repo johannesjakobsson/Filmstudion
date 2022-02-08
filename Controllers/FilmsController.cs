@@ -50,11 +50,6 @@ namespace Filmstudion.Controllers
                 }
 
                 var film = _filmRepository.AddFilm(model);
-                
-                if(film != null)
-                {
-                    _filmCopyRepository.CreateCopies(film.FilmId, model.NumberOfCopies);
-                }
 
                 return Ok(film);
             }
@@ -73,6 +68,10 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUserWithoutException(username);
                 var films = _filmRepository.AllFilms;
+                foreach(var film in films )
+                {
+                    film.FilmCopies = _filmCopyRepository.GetFilmCopies(film.FilmId).ToArray();
+                }
 
                 if(user == null)
                 {
@@ -100,6 +99,7 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUserWithoutException(username);
                 var film = _filmRepository.GetFilmById(id);
+                film.FilmCopies = _filmCopyRepository.GetFilmCopies(film.FilmId).ToArray();
 
                 if(user == null)
                 {
@@ -112,6 +112,28 @@ namespace Filmstudion.Controllers
                 }
 
                 return BadRequest("Error getting film");
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        }
+
+        [HttpPatch("{id:int}")]
+        public IActionResult EditFilm(int id, EditFilmResource model)
+        {
+            try
+            {
+                var username = User.Identity.Name;
+                var user = _userRepository.GetUser(username);
+
+                if(!user.IsAdmin) return Unauthorized(new {message = "Only admins allowed"});
+
+                var newFilm = _filmRepository.EditFilmById(id, model);
+                var result = _mapper.Map<EditFilmResponseResource>(newFilm);
+                result.FilmCopies = _filmCopyRepository.GetFilmCopies(id).ToArray();
+                return Ok(result);
+                
             }
             catch (Exception ex)
             {

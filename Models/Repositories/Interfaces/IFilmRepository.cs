@@ -8,5 +8,6 @@ namespace Filmstudion.Models
         public IEnumerable<Film> AllFilms { get;}
         public Film AddFilm(CreateFilmResource model);
         public Film GetFilmById(int id);
+        public Film EditFilmById(int id, EditFilmResource model);
     }
 }
