@@ -1,4 +1,6 @@
-namespace Filmstudion.Models
+using Filmstudion.Models;
+
+namespace Filmstudion.Resources
 {
     public class CreateFilmResource : ICreateFilm
     {

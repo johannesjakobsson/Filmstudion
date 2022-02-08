@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
+using Filmstudion.Resources;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
