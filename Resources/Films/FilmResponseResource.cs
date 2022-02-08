@@ -10,7 +10,6 @@ namespace Filmstudion.Resources
         public string Name { get; set; }
         public int ReleaseYear { get; set; }
         public string Country { get; set; }
-        [JsonIgnore]
         public string Director { get; set; }
         [JsonIgnore]
         public IEnumerable<FilmCopy> FilmCopies { get; set; }
