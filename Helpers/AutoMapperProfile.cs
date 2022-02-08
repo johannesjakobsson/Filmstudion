@@ -14,7 +14,7 @@ namespace Filmstudion.Helpers
             CreateMap<User, UserResponseResource>();
             CreateMap<User, AuthenticateResponseResource>();
             CreateMap<CreateFilmResource, Film>();
-            CreateMap<FilmStudio, GetAllFilmStudiosResponseResource>();
+            CreateMap<FilmStudio, FilmStudiosResponseResource>();
         }
     }
 }

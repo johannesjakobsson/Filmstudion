@@ -6,6 +6,7 @@ namespace Filmstudion.Models
     public interface IFilmStudioRepository
     {
         public IEnumerable<FilmStudio> AllFilmStudios { get; }
-        void Register(RegisterFilmStudioResource model);
+        FilmStudio Register(RegisterFilmStudioResource model);
+        public FilmStudio GetFilmStudioById(int id);
     }
 }

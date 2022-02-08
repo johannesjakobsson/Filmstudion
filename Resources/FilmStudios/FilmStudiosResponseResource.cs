@@ -4,7 +4,7 @@ using Filmstudion.Models;
 
 namespace Filmstudion.Resources
 {
-    public class GetAllFilmStudiosResponseResource : IFilmStudio
+    public class FilmStudiosResponseResource : IFilmStudio
     {
         public int FilmStudioId { get; set; }
         public string FilmStudioName { get; set; }
