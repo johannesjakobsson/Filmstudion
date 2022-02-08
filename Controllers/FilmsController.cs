@@ -84,7 +84,34 @@ namespace Filmstudion.Controllers
                     return Ok(films.ToArray());
                 }
 
-                return BadRequest("Error getting filmstudio");
+                return BadRequest("Error getting films");
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        }
+        [HttpGet("{id:int}")]
+        [AllowAnonymous]
+        public IActionResult GetFilm(int id) 
+        {
+            try
+            {
+                var username = User.Identity.Name;
+                var user = _userRepository.GetUserWithoutException(username);
+                var film = _filmRepository.GetFilmById(id);
+
+                if(user == null)
+                {
+                    return Ok(_mapper.Map<FilmResponseResource>(film));
+                }
+
+                if(User.Identity.IsAuthenticated)
+                {
+                    return Ok(film);
+                }
+
+                return BadRequest("Error getting film");
             }
             catch (Exception ex)
             {
