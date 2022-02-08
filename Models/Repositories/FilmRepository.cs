@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Filmstudion.Resources;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +33,11 @@ namespace Filmstudion.Models
             return film;
         }
 
-        
+        public Film GetFilmById(int id)
+        {
+            _logger.LogInformation("Get a filmstudio");
+
+            return _context.Films.FirstOrDefault(f => f.FilmId == id);
+        }
     }
 }

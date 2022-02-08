@@ -35,6 +35,11 @@ namespace Filmstudion.Models
                 throw new Exception("Username '" + model.UserName + "' is already taken");
             }
 
+            if(_context.Users.Any(x => x.FilmStudioName == model.FilmStudioName))
+            {
+                throw new Exception("FilmStudioName '" + model.FilmStudioName + "' is already taken");
+            }
+
             // map model to new user object
             var filmStudioUser = _mapper.Map<User>(model);
             filmStudioUser.Role = "Filmstudio"; //Tillfällig lösning
@@ -47,6 +52,9 @@ namespace Filmstudion.Models
             //save filmstudio
             _context.FilmStudios.Add(filmStudio); 
             _context.SaveChanges();
+
+
+            //_context.Entry(filmStudio).GetDatabaseValues();
 
             //find filmstudio and set ID
             var lastAddedStudio = _context.FilmStudios.FirstOrDefault(x => x.FilmStudioName == model.FilmStudioName);
