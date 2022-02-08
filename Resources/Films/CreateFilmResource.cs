@@ -1,6 +1,6 @@
 namespace Filmstudion.Models
 {
-    public class CreateFilm : ICreateFilm
+    public class CreateFilmResource : ICreateFilm
     {
         public string Name { get; set; }
         public int ReleaseYear { get; set; }

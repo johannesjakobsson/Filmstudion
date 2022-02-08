@@ -21,7 +21,7 @@ namespace Filmstudion.Models
         
         public IEnumerable<Film> AllFilms { get { return _context.Films; } }
 
-        public Film AddFilm(CreateFilm model)
+        public Film AddFilm(CreateFilmResource model)
         {
             _logger.LogInformation("Adding new film");
 

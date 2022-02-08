@@ -8,13 +8,13 @@ namespace Filmstudion.Helpers
     {
         public AutoMapperProfile() 
         {
-            CreateMap<RegisterFilmStudio, User>();
-            CreateMap<RegisterFilmStudio, FilmStudio>();
+            CreateMap<RegisterFilmStudioResource, User>();
+            CreateMap<RegisterFilmStudioResource, FilmStudio>();
             CreateMap<UserRegister, User>();
-            CreateMap<User, UserResponse>();
-            CreateMap<User, AuthenticateResponse>();
-            CreateMap<CreateFilm, Film>();
-            CreateMap<FilmStudio, GetAllFilmStudiosResponse>();
+            CreateMap<User, UserResponseResource>();
+            CreateMap<User, AuthenticateResponseResource>();
+            CreateMap<CreateFilmResource, Film>();
+            CreateMap<FilmStudio, GetAllFilmStudiosResponseResource>();
         }
     }
 }

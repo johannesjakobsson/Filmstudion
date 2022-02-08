@@ -6,6 +6,7 @@ namespace Filmstudion.Models
     {
         void Register(UserRegister model);
         public User GetUser(string userName);
-        public AuthenticateResponse Authenticate(UserAuthenticate model);
+        public User GetUserWithoutException(string userName);
+        public AuthenticateResponseResource Authenticate(UserAuthenticateResource model);
     }
 }

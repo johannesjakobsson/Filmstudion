@@ -63,7 +63,14 @@ namespace Filmstudion.Models
             return user;
         }
 
-        public AuthenticateResponse Authenticate(UserAuthenticate model)
+        public User GetUserWithoutException(string userName)
+        {
+            _logger.LogInformation("Getting user by username");
+            var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            return user;
+        }
+
+        public AuthenticateResponseResource Authenticate(UserAuthenticateResource model)
         {
             _logger.LogInformation("Authenticates User or Filmstudio");
 
@@ -93,7 +100,7 @@ namespace Filmstudion.Models
                 expires: DateTime.UtcNow.AddDays(1));
 
             //Map and response
-            var response = _mapper.Map<AuthenticateResponse>(user);
+            var response = _mapper.Map<AuthenticateResponseResource>(user);
             response.Token = new JwtSecurityTokenHandler().WriteToken(token);
 
             // SKA VI LÄGGA TILL DENNA TOKEN TILL ANVÄNDAREN I DATABASEN??

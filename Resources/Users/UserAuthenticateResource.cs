@@ -3,7 +3,7 @@ using Filmstudion.Models;
 
 namespace Filmstudion.Resources
 {
-    public class UserAuthenticate : IUserAuthenticate
+    public class UserAuthenticateResource : IUserAuthenticate
     {
         [Required]
         public string UserName { get; set; }

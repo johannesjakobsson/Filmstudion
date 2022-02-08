@@ -34,7 +34,7 @@ namespace Filmstudion.Controllers
             {
                 _repository.Register(model);
                 var user = _repository.GetUser(model.UserName);
-                return Ok(_mapper.Map<UserResponse>(user));
+                return Ok(_mapper.Map<UserResponseResource>(user));
             }
             catch(Exception ex)
             {
@@ -43,7 +43,7 @@ namespace Filmstudion.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(UserAuthenticate model)
+        public IActionResult Authenticate(UserAuthenticateResource model)
         {
             try
             {
