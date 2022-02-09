@@ -57,9 +57,9 @@ namespace Filmstudion.Controllers
 
                 return Ok(film);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
         }
 
