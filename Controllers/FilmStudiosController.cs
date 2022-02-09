@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Filmstudion.Controllers
 {
     [ApiController] 
+    [Route("(api/[controller])")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //DEN HÄR STRÄNGEN SKA FINNAS DÄR DET BEHÖVS AUTHORIZATION
     public class FilmStudiosController : ControllerBase
     {
@@ -27,7 +28,7 @@ namespace Filmstudion.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("api/filmstudio/register")]
+        [HttpPost("register")]
         public IActionResult Register(RegisterFilmStudioResource model)
         {
             try
@@ -42,7 +43,7 @@ namespace Filmstudion.Controllers
         }
         
         [AllowAnonymous]
-        [HttpGet("api/[controller]")]   
+        [HttpGet]   
         public IActionResult GetAllFilmstudios() 
         {
             try
@@ -68,7 +69,7 @@ namespace Filmstudion.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("api/filmstudio/{id:int}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetFilmStudio(int id) // SKA RETURNERA EN ARRAY AV OBJEKT INTE BARA OBJEKT
         {
             try

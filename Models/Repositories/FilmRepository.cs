@@ -60,26 +60,11 @@ namespace Filmstudion.Models
                 throw new Exception("Film not found");
             }
 
-            var copiesCount = _filmCopyRepository.GetFilmCopies(id).ToList().Count();
-
-            if(copiesCount != model.NumberOfCopies)
-                {
-
-                    if(copiesCount > model.NumberOfCopies)
-                    {
-                        var newCopies = model.NumberOfCopies;
-                        var currentCopies = _filmCopyRepository.GetFilmCopies(id);
-                        _filmCopyRepository.DeleteCopies(newCopies, currentCopies);
-                    }
-                    else if (copiesCount < model.NumberOfCopies)
-                    {
-                        _filmCopyRepository.CreateCopies(id, model.NumberOfCopies, copiesCount);
-                    }
-                }
+            var newFilmCopies = _filmCopyRepository.EditFilmCopies(id, model);
 
             var newFilm = _mapper.Map(model,oldFilm);
             newFilm.FilmId = id;
-            newFilm.FilmCopies = _filmCopyRepository.GetFilmCopies(id).ToList();
+            newFilm.FilmCopies = newFilmCopies.ToList();
             
             _context.Films.Update(newFilm);
             _context.SaveChanges();
