@@ -18,22 +18,23 @@ namespace Filmstudion.Controllers
     [Route("api/[controller]")] 
     public class UsersController : ControllerBase
     {
-        private IUserRepository _repository;
+        private IUserRepository _userRepository;
+        private IFilmStudioRepository _filmStudioRepository;
         private readonly IMapper _mapper;
 
-        public UsersController(IUserRepository repository, IMapper mapper)
+        public UsersController(IUserRepository userRepository, IMapper mapper, IFilmStudioRepository filmStudioRepository)
         {
-            _repository = repository;
+            _userRepository = userRepository;
+            _filmStudioRepository = filmStudioRepository;
             _mapper = mapper;
         }
 
         [HttpPost("register")]
-        public IActionResult Register(UserRegister model)
+        public IActionResult Register(UserRegisterResource model)
         {
             try
             {
-                _repository.Register(model);
-                var user = _repository.GetUser(model.UserName);
+                var user = _userRepository.Register(model);
                 return Ok(_mapper.Map<UserResponseResource>(user));
             }
             catch(Exception ex)
@@ -47,8 +48,16 @@ namespace Filmstudion.Controllers
         {
             try
             {
-                var response = _repository.Authenticate(model);
-                return Ok(response);
+                var user = _userRepository.Authenticate(model);
+                if(user.Role == "Admin")
+                {
+                    return Ok(_mapper.Map<AuthenticateResponseResource>(user));
+                }
+                else{
+                    var filmStudioUser = _mapper.Map<FilmStudioAuthenticateResponseResource>(user);
+                    filmStudioUser.FilmStudio = _filmStudioRepository.GetFilmStudioById(filmStudioUser.FilmStudioId);
+                    return Ok(filmStudioUser);
+                }
             }
             catch (Exception ex)
             {

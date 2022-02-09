@@ -65,16 +65,12 @@ namespace Filmstudion.Models
             _context.FilmStudios.Add(filmStudio); 
             _context.SaveChanges();
 
-
-            //_context.Entry(filmStudio).GetDatabaseValues();
-
-            //find filmstudio and set ID
-            var lastAddedStudio = _context.FilmStudios.FirstOrDefault(x => x.FilmStudioName == model.FilmStudioName);
-            filmStudioUser.FilmStudioId = lastAddedStudio.FilmStudioId;
-            filmStudio.FilmStudioId = lastAddedStudio.FilmStudioId;
+            //set filmstudio-ID to user after know id in database
+            filmStudioUser.FilmStudioId = filmStudio.FilmStudioId;
 
             //save user
             _context.Users.Add(filmStudioUser);
+            filmStudioUser.UserId = filmStudioUser.Id;
             _context.SaveChanges();
 
             return filmStudio;
@@ -91,7 +87,6 @@ namespace Filmstudion.Models
 
         public void RentAFilm(FilmStudio studio, FilmCopy filmCopy)
         {
-            
             filmCopy.FilmStudioId = studio.FilmStudioId;
             filmCopy.RentedOut = true;
             var filmCopyList = new List<FilmCopy>();
