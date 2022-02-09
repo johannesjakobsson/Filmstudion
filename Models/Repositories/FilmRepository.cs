@@ -31,13 +31,15 @@ namespace Filmstudion.Models
         {
             _logger.LogInformation("Adding new film");
 
+            var nameTaken = _context.Films.FirstOrDefault(f => f.Name == model.Name);
+            if(nameTaken != null) throw new Exception("Film name already exists");
+
             var film = _mapper.Map<Film>(model);
             
             _context.Films.Add(film);
             _context.SaveChanges();
 
-            var savedFilm = _context.Films.FirstOrDefault(f => f.Name == model.Name);
-            _filmCopyRepository.CreateCopies(savedFilm.FilmId, model.NumberOfCopies);
+            _filmCopyRepository.CreateCopies(film.FilmId, model.NumberOfCopies);
 
             return film;
         }
