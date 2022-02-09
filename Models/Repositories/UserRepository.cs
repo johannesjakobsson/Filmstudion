@@ -87,8 +87,7 @@ namespace Filmstudion.Models
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                //new Claim(JwtRegisteredClaimNames.FamilyName, user.Role)
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
@@ -99,12 +98,8 @@ namespace Filmstudion.Models
                 _config["Tokens:Audience"], 
                 claims,
                 signingCredentials: creds,
-                expires: DateTime.UtcNow.AddDays(1));
-
-            //Map and response
-            //var response = _mapper.Map<AuthenticateResponseResource>(user);
-            //response.Token = new JwtSecurityTokenHandler().WriteToken(token);
-
+                expires: DateTime.UtcNow.AddDays(1)
+            );
 
             user.Token = new JwtSecurityTokenHandler().WriteToken(token);
             _context.Users.Update(user);
