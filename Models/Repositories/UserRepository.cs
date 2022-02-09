@@ -30,7 +30,7 @@ namespace Filmstudion.Models
             _config = config;
         }
 
-        public void Register(UserRegister model)
+        public User Register(UserRegisterResource model)
         {
             _logger.LogInformation("Register new Admin");
 
@@ -53,7 +53,9 @@ namespace Filmstudion.Models
             admin.Role = "Admin"; // Tillfällig lösning!
 
             _context.Users.Add(admin);
+            admin.UserId = admin.Id;
             _context.SaveChanges();
+            return admin;
         }
         public User GetUser(string userName)
         {
@@ -70,7 +72,7 @@ namespace Filmstudion.Models
             return user;
         }
 
-        public AuthenticateResponseResource Authenticate(UserAuthenticateResource model)
+        public User Authenticate(UserAuthenticateResource model)
         {
             _logger.LogInformation("Authenticates User or Filmstudio");
 
@@ -86,7 +88,7 @@ namespace Filmstudion.Models
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.Role)
+                //new Claim(JwtRegisteredClaimNames.FamilyName, user.Role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
@@ -100,11 +102,14 @@ namespace Filmstudion.Models
                 expires: DateTime.UtcNow.AddDays(1));
 
             //Map and response
-            var response = _mapper.Map<AuthenticateResponseResource>(user);
-            response.Token = new JwtSecurityTokenHandler().WriteToken(token);
+            //var response = _mapper.Map<AuthenticateResponseResource>(user);
+            //response.Token = new JwtSecurityTokenHandler().WriteToken(token);
 
-            // SKA VI LÄGGA TILL DENNA TOKEN TILL ANVÄNDAREN I DATABASEN??
-            return response;
+
+            user.Token = new JwtSecurityTokenHandler().WriteToken(token);
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return user;
         }
     }
 }

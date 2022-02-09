@@ -10,9 +10,10 @@ namespace Filmstudion.Helpers
         {
             CreateMap<RegisterFilmStudioResource, User>();
             CreateMap<RegisterFilmStudioResource, FilmStudio>();
-            CreateMap<UserRegister, User>();
+            CreateMap<UserRegisterResource, User>();
             CreateMap<User, UserResponseResource>().ForMember(x => x.UserId, ex => ex.MapFrom(i => i.Id));
             CreateMap<User, AuthenticateResponseResource>().ForMember(x => x.UserId, ex => ex.MapFrom(i => i.Id));
+            CreateMap<User, FilmStudioAuthenticateResponseResource>().ForMember(x => x.UserId, ex => ex.MapFrom(i => i.Id));
             CreateMap<CreateFilmResource, Film>();
             CreateMap<FilmStudio, FilmStudiosResponseResource>();
             CreateMap<Film, FilmResponseResource>();

@@ -4,9 +4,9 @@ namespace Filmstudion.Models
 {
     public interface IUserRepository
     {
-        void Register(UserRegister model);
+        public User Register(UserRegisterResource model);
         public User GetUser(string userName);
         public User GetUserWithoutException(string userName);
-        public AuthenticateResponseResource Authenticate(UserAuthenticateResource model);
+        public User Authenticate(UserAuthenticateResource model);
     }
 }

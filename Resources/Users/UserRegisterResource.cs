@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using Filmstudion.Models;
 
-namespace Filmstudion.Models
+namespace Filmstudion.Resources
 {
-    public class UserRegister : IUserRegister
+    public class UserRegisterResource : IUserRegister
     {
         [Required]
         public string UserName { get; set; }

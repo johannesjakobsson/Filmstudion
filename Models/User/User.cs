@@ -13,6 +13,7 @@ namespace Filmstudion.Models
         public string FilmStudioName { get; set; }
         public string FilmStudioCity { get; set; }
         public string ContactPerson { get; set; }
+        public string Token { get; set; }
         public List<FilmCopy> RentedFilmCopies { get; set; }
     }
 }
