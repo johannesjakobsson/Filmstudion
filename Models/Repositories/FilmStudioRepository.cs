@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Filmstudion.Resources;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using BCryptNet = BCrypt.Net.BCrypt;
 
@@ -23,7 +24,18 @@ namespace Filmstudion.Models
             _logger = logger;
         }
 
-        public IEnumerable<FilmStudio> AllFilmStudios { get { return _context.FilmStudios; } }
+        public IEnumerable<FilmStudio> AllFilmStudios()
+        {
+            _logger.LogInformation("Get all filmstudio");
+
+            var filmstudios = _context.FilmStudios;
+            foreach(var studio in filmstudios)
+            {
+                studio.RentedFilmCopies = _context.FilmCopies.Where(fc => fc.FilmStudioId == studio.FilmStudioId).ToList();
+            }
+
+            return filmstudios;
+        }
 
         public FilmStudio Register(RegisterFilmStudioResource model)
         {
@@ -71,7 +83,23 @@ namespace Filmstudion.Models
         {
             _logger.LogInformation("Get a filmstudio");
 
-            return _context.FilmStudios.FirstOrDefault(f => f.FilmStudioId == id);
+            var filmstudio = _context.FilmStudios.FirstOrDefault(f => f.FilmStudioId == id);
+            filmstudio.RentedFilmCopies = _context.FilmCopies.Where(fc => fc.FilmStudioId == id).ToList();
+
+            return filmstudio;
+        }
+
+        public void RentAFilm(FilmStudio studio, FilmCopy filmCopy)
+        {
+            
+            filmCopy.FilmStudioId = studio.FilmStudioId;
+            filmCopy.RentedOut = true;
+            var filmCopyList = new List<FilmCopy>();
+            filmCopyList.Add(filmCopy);
+            studio.RentedFilmCopies = filmCopyList;
+            _context.FilmCopies.Update(filmCopy);
+            _context.FilmStudios.Update(studio);
+            _context.SaveChanges();
         }
 
 

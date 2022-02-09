@@ -96,5 +96,39 @@ namespace Filmstudion.Models
             var newFilmCopies = GetFilmCopies(id);
             return newFilmCopies;
         }
+
+        public bool isFilmCopyAvailable(int filmId)
+        {
+            var filmCopies = _context.FilmCopies
+                .Where(fc => fc.RentedOut == false)
+                .Where(f => f.FilmId == filmId);
+
+            if (filmCopies.ToList().Count() > 0) return true;
+
+            return false;
+        }
+
+        public bool isFilmRentedByThisFilmStudio(int filmId, int studioId)
+        {
+            var filmCopies = _context.FilmCopies
+                .Where(f => f.FilmId == filmId)
+                .Where(fc => fc.FilmStudioId == studioId);
+
+            if(filmCopies.ToList().Count() > 0) return true;
+
+            return false;
+        }
+
+        public FilmCopy GetAvailableFilmCopy(int filmId)
+        {
+            return _context.FilmCopies
+                .Where(f => f.FilmId == filmId)
+                .FirstOrDefault(fc => fc.RentedOut == false);
+        }
+
+        public IEnumerable<FilmCopy> GetFilmCopiesRentedByFilmstudio(int studioId)
+        {
+            return _context.FilmCopies.Where(fc => fc.FilmStudioId == studioId);
+        }
     }
 }
