@@ -3,12 +3,12 @@
 ## Instruktioner
 
 *Vad behöver göras för att ditt program ska starta och gå och använda?*
-**Kräver .NET5.0 SDK**  
-**Navigera till Filmstudion-mappen via terminalen**  
-**Skriv "dotnet run"**  
-**Du behöver en webbläsare där du kan navigera in på https://localhost:5001 för att testa klientgränssnittet.**  
-**Vill du endast kontrollera API-åtkomstpunkterna så navigera in på https://localhost:5001/swagger/index.html för att se vidare dokumentation**  
-**Rekommenderat är att ha exempelvis Postman för att navigera och testa de olika åtkomstpunkterna**  
+**- Kräver .NET5.0 SDK**  
+**- Navigera till Filmstudion-mappen via terminalen**  
+**- Skriv "dotnet run"**  
+**- Du behöver en webbläsare där du kan navigera in på https://localhost:5001 för att testa klientgränssnittet.**  
+**- Vill du endast kontrollera API-åtkomstpunkterna så navigera in på https://localhost:5001/swagger/index.html för att se vidare dokumentation**  
+**- Rekommenderat är att ha exempelvis Postman för att navigera och testa de olika åtkomstpunkterna**  
 
 ## TODO - Kvar att göra
 
