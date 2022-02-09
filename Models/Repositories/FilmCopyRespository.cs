@@ -126,9 +126,11 @@ namespace Filmstudion.Models
                 .FirstOrDefault(fc => fc.RentedOut == false);
         }
 
-        public IEnumerable<FilmCopy> GetFilmCopiesRentedByFilmstudio(int studioId)
+        public FilmCopy GetRentedFilmCopy(int filmId, int studioId)
         {
-            return _context.FilmCopies.Where(fc => fc.FilmStudioId == studioId);
+            return _context.FilmCopies
+                .Where(f => f.FilmId == filmId)
+                .FirstOrDefault(fc => fc.FilmStudioId == studioId);
         }
     }
 }

@@ -18,13 +18,11 @@ namespace Filmstudion.Controllers
     {
         private IFilmStudioRepository _filmStudioRepository;
         private IUserRepository _userRepository;
-        private IFilmCopyRepository _filmCopyRepository;
         private readonly IMapper _mapper;
 
         public FilmStudiosController(IFilmStudioRepository filmStudioRepository, 
         IMapper mapper, 
-        IUserRepository userRepository,
-        IFilmCopyRepository filmCopyRepository)
+        IUserRepository userRepository)
         {
             _filmStudioRepository = filmStudioRepository;
             _userRepository = userRepository;

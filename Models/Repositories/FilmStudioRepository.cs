@@ -101,7 +101,14 @@ namespace Filmstudion.Models
             _context.FilmStudios.Update(studio);
             _context.SaveChanges();
         }
-
-
+        public void ReturnAFilm(FilmStudio studio, FilmCopy filmCopy)
+        {
+            filmCopy.FilmStudioId = 0;
+            filmCopy.RentedOut = false;
+            studio.RentedFilmCopies.Remove(filmCopy);
+            _context.FilmCopies.Update(filmCopy);
+            _context.FilmStudios.Update(studio);
+            _context.SaveChanges();
+        }
     }
 }

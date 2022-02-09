@@ -9,5 +9,6 @@ namespace Filmstudion.Models
         FilmStudio Register(RegisterFilmStudioResource model);
         public FilmStudio GetFilmStudioById(int id);
         public void RentAFilm(FilmStudio studio, FilmCopy filmCopy);
+        public void ReturnAFilm(FilmStudio studio, FilmCopy filmCopy);
     }
 }

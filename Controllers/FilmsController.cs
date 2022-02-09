@@ -171,7 +171,37 @@ namespace Filmstudion.Controllers
 
                 _filmStudioRepository.RentAFilm(studio, copy);
 
-                return Ok(new { ok = "ok"});
+                return Ok(new { Rent = "Successful"}); // Skicka tillbaka annat svar?
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        }
+        [HttpPost("return")]
+        public IActionResult ReturnFilm(int id, int studioId)
+        {
+            try
+            {
+                var username = User.Identity.Name;
+                var user = _userRepository.GetUser(username);
+
+                if(user.Role != "Filmstudio") return Unauthorized(new {message = "Only FilmStudios is allowed to return"});
+
+                if(user.FilmStudioId != studioId) return Unauthorized(new {message = "Filmstudio-ID does not match this users Key/Bearer-token"});
+
+                var filmToReturn = _filmRepository.GetFilmById(id);
+
+                if(filmToReturn == null) return Conflict( new {message = "No film with that ID found"});
+
+
+                var copy =  _filmCopyRepository.GetRentedFilmCopy(id, studioId);
+                var studio = _filmStudioRepository.GetFilmStudioById(studioId);
+
+                _filmStudioRepository.ReturnAFilm(studio, copy);
+
+                return Ok(new { Return = "Successful"}); // Skicka tillbaka annat svar?
 
             }
             catch (Exception ex)
