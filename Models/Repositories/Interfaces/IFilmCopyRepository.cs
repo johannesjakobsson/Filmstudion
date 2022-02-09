@@ -14,6 +14,6 @@ namespace Filmstudion.Models
         public bool isFilmCopyAvailable(int filmId);
         public bool isFilmRentedByThisFilmStudio(int filmId, int studioId);
         public FilmCopy GetAvailableFilmCopy(int filmId);
-        public IEnumerable<FilmCopy> GetFilmCopiesRentedByFilmstudio(int studioId);
+        public FilmCopy GetRentedFilmCopy(int filmId, int studioId);
     }
 }
