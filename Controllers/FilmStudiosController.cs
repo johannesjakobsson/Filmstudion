@@ -12,15 +12,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace Filmstudion.Controllers
 {
     [ApiController] 
-    [Route("(api/[controller])")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //DEN HÄR STRÄNGEN SKA FINNAS DÄR DET BEHÖVS AUTHORIZATION
+    [Route("api/[controller]")] 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FilmStudiosController : ControllerBase
     {
         private IFilmStudioRepository _filmStudioRepository;
         private IUserRepository _userRepository;
+        private IFilmCopyRepository _filmCopyRepository;
         private readonly IMapper _mapper;
 
-        public FilmStudiosController(IFilmStudioRepository filmStudioRepository, IMapper mapper, IUserRepository userRepository)
+        public FilmStudiosController(IFilmStudioRepository filmStudioRepository, 
+        IMapper mapper, 
+        IUserRepository userRepository,
+        IFilmCopyRepository filmCopyRepository)
         {
             _filmStudioRepository = filmStudioRepository;
             _userRepository = userRepository;
@@ -50,7 +54,7 @@ namespace Filmstudion.Controllers
             {
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUserWithoutException(username);
-                var studios = _filmStudioRepository.AllFilmStudios;
+                var studios = _filmStudioRepository.AllFilmStudios();
 
                 if(user == null || !user.IsAdmin)
                 {
@@ -77,6 +81,7 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUserWithoutException(username);
                 var studio = _filmStudioRepository.GetFilmStudioById(id);
+
                 if(studio == null)
                 {
                     throw new Exception("No studio found");

@@ -11,5 +11,9 @@ namespace Filmstudion.Models
         public void CreateCopies(int filmId, int filmCopies);
         public void DeleteCopies(int newCopies, IEnumerable<FilmCopy> currentCopies);
         public void CreateCopies(int filmId, int newFilmCopies, int oldAmountOfCopies);
+        public bool isFilmCopyAvailable(int filmId);
+        public bool isFilmRentedByThisFilmStudio(int filmId, int studioId);
+        public FilmCopy GetAvailableFilmCopy(int filmId);
+        public IEnumerable<FilmCopy> GetFilmCopiesRentedByFilmstudio(int studioId);
     }
 }
