@@ -38,6 +38,11 @@ namespace Filmstudion.Controllers
 
                 var filmstudio = _filmStudioRepository.GetFilmStudioById(user.FilmStudioId);
 
+                if(filmstudio.RentedFilmCopies.ToArray().Length == 0) 
+                {
+                    return Ok(new {message = "You don't have any rented movies!"});
+                }
+
                 return Ok(filmstudio.RentedFilmCopies.ToArray());
             }
             catch (Exception ex)
