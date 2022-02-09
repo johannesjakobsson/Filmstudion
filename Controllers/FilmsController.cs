@@ -20,7 +20,7 @@ namespace Filmstudion.Controllers
     {
         private IFilmRepository _filmRepository;
         private IUserRepository _userRepository;
-         private IFilmStudioRepository _filmStudioRepository;
+        private IFilmStudioRepository _filmStudioRepository;
         private IFilmCopyRepository _filmCopyRepository;
         private readonly IMapper _mapper;
 
@@ -161,7 +161,7 @@ namespace Filmstudion.Controllers
                 if(!_filmCopyRepository.isFilmCopyAvailable(id)) return Conflict( new {message = "No copy available"});
 
                 if(_filmCopyRepository.isFilmRentedByThisFilmStudio(id, studioId)) 
-                return this.StatusCode(StatusCodes.Status403Forbidden, new {message = "Film is already rented by this filmstudio"});
+                    return this.StatusCode(StatusCodes.Status403Forbidden, new {message = "Film is already rented by this filmstudio"});
 
                 var copy =  _filmCopyRepository.GetAvailableFilmCopy(id);
                 var studio = _filmStudioRepository.GetFilmStudioById(studioId);
