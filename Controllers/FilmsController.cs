@@ -139,6 +139,28 @@ namespace Filmstudion.Controllers
             {
                 return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
-        }
+        } 
+
+/*         [HttpPatch("{id:int}")]
+        public IActionResult EditFilmCopys(int id, EditFilmCopiesResource model)
+        {
+            try
+            {
+                var username = User.Identity.Name;
+                var user = _userRepository.GetUser(username);
+
+                if(!user.IsAdmin) return Unauthorized(new {message = "Only admins allowed"});
+
+                var newFilmcopies = _filmCopyRepository.EditFilmCopies(id, model);
+                var film = _filmRepository.GetFilmById(id);
+                film.FilmCopies = newFilmcopies;
+
+                return Ok(film);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        } */
     }
 }

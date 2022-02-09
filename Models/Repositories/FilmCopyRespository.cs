@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Filmstudion.Resources;
 using Microsoft.Extensions.Logging;
 
 namespace Filmstudion.Models
@@ -52,13 +54,13 @@ namespace Filmstudion.Models
             var counter = currentCopies.ToList().Count();
             foreach(var copy in currentCopies)
             {   
-                counter--;
-                _context.Remove(copy);
+                
                 if(counter <= newCopies)
                 {
                     break;
                 }
-                
+                counter--;
+                _context.Remove(copy);
                 _context.SaveChanges();
             }
         }
@@ -66,6 +68,33 @@ namespace Filmstudion.Models
         public IEnumerable<FilmCopy> GetFilmCopies(int filmId)
         {
             return _context.FilmCopies.Where(fc => fc.FilmId == filmId);
+        }
+
+        public IEnumerable<FilmCopy> EditFilmCopies( int id, EditFilmResource model)
+        {
+            var filmCopies = GetFilmCopies(id);
+
+            if (filmCopies == null) throw new Exception("FilmCopies not found");
+
+            var numberOfCopies = filmCopies.ToList().Count();
+
+            if(numberOfCopies != model.NumberOfCopies)
+                {
+
+                    if(numberOfCopies > model.NumberOfCopies)
+                    {
+                        var newCopies = model.NumberOfCopies;
+                        var currentCopies = GetFilmCopies(id);
+                        DeleteCopies(newCopies, currentCopies);
+                    }
+                    else if (numberOfCopies < model.NumberOfCopies)
+                    {
+                        CreateCopies(id, model.NumberOfCopies, numberOfCopies);
+                    }
+                }
+
+            var newFilmCopies = GetFilmCopies(id);
+            return newFilmCopies;
         }
     }
 }
