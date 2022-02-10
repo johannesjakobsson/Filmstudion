@@ -18,37 +18,47 @@ export async function runRentedFilms(){
             console.log(rentedFilmData);
             console.log(filmData);
 
-            app.mainContent.insertAdjacentHTML('beforeend', `\
-            <div id="main-films">
-             </div>`);
-
-            for(const filmcopy of rentedFilmData)
+            if(rentedFilmData.message === "You don't have any rented movies!")
             {
-                for(const film of filmData)
+                app.mainContent.innerHTML = "Här var det tomt. Dags att hyra filmer!";
+            } else {
+
+                app.mainContent.insertAdjacentHTML('beforeend', `\
+                <div id="main-films">
+                 </div>`);
+
+                for(const filmcopy of rentedFilmData)
                 {
-                    if(filmcopy.filmId === film.filmId)
+                    for(const film of filmData)
                     {
-                        
-                        let mainFilm = document.querySelector('#main-films');
-                        mainFilm.insertAdjacentHTML('beforeend', `\
-                        <div id="film${film.filmId}" class="film">\
-                        <div>Namn: ${film.name}</div>
-                        <div>Regissör: ${film.director}</div>
-                        <div>Land: ${film.country}</div>
-                        <div>Årtal: ${film.releaseYear}</div>
-                        </div>`);
-
-                        let returnButton = document.createElement('button');
-                        returnButton.id = `filmBtn${film.filmId}`;
-                        returnButton.innerText = 'Returnera';
-
-                        let filmDiv = document.querySelector(`#film${film.filmId}`);
-                        filmDiv.insertAdjacentElement('beforeend', returnButton); 
-
-                        returnFilm(film.filmId, returnButton);
+                        if(filmcopy.filmId === film.filmId)
+                        {
+                            
+                            let mainFilm = document.querySelector('#main-films');
+                            mainFilm.insertAdjacentHTML('beforeend', `\
+                            <div id="film${film.filmId}" class="film">\
+                            <div>Namn: ${film.name}</div>
+                            <div>Regissör: ${film.director}</div>
+                            <div>Land: ${film.country}</div>
+                            <div>Årtal: ${film.releaseYear}</div>
+                            </div>`);
+    
+                            let returnButton = document.createElement('button');
+                            returnButton.id = `filmBtn${film.filmId}`;
+                            returnButton.innerText = 'Returnera';
+    
+                            let filmDiv = document.querySelector(`#film${film.filmId}`);
+                            filmDiv.insertAdjacentElement('beforeend', returnButton); 
+    
+                            returnFilm(film.filmId, returnButton);
+                        }
                     }
-                }
-            } 
+                } 
+            }
+
+
+
+
         }
     });
 }

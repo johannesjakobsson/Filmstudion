@@ -31,16 +31,17 @@
 |**13**  |**Ja**| |
 |**14**  |**Ja**| |
 |**15**  |**Ja**| |
-|**16**  || |
-|**17**  || |
-|**18**  || |
-|**19**  || |
-|**20**  || |
-|**21**  |**Påbörjad**| |
+|**16**  |**Ja**| |
+|**17**  |**Ja**| |
+|**18**  |**Ja**| |
+|**19**  |**Ja**| |
+|**20**  |**Ja**| |
+|**21**  |**Ja**| |
 |**22**  |**Ja**| |
 |**23**  |**Ska bara lägga in filen**| |
-|**24**  |**Ja** |
-|**25**  |**Påbörjad** |
-|**26**  |**Påbörjad** |
+|**24**  |**Ja** | |
+|**25**  |**Ja** | |
+|**26**  |**Ja** | |
 
 ## Förtydliganden/motivering
+Det här har varit en stressig uppgift. Har lagt mer extremt många timmar för att ens få ihop det. Ändå känns det som man inte har åstadkommit så mycket man hade hoppats på. Den röda tråden genom kodstrukturen finns liksom inte där anser jag. Men vi är ju här för att bli bättre! Perfektion föds inte på en dag ;)
