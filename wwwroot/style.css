@@ -1,0 +1,48 @@
+*{
+    font-family:Verdana, Geneva, Tahoma, sans-serif; 
+}
+
+/* HEADER */
+#header-img {
+    padding: 2px;
+    margin: 8px;
+    max-width: 100px;
+}
+#header {
+    display: flex;
+    border: 1px solid black;
+}
+
+/* BODY */
+.body-container{
+    display: flex;
+    flex-direction: column;
+}
+.body-item {
+    margin: 5px;
+}
+#menu {
+    display: flex;
+    justify-content: space-around;
+}
+.menu-item {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+/* LOGIN */
+#error-login{
+    color: red;
+}
+
+/* FOOTER */
+footer {
+    background-color: #fc8200;
+    text-align: center;
+    padding: 2px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+/* -------------------------------- */
