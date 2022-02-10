@@ -1,79 +1,21 @@
+import { runLoginPage, checkIfLoggedIn } from './modules/login.js';
+import { runHomePage } from './modules/home.js';
 
-const app = {
+export const app = {
     menu: document.querySelector("#menu"),
     mainContent: document.querySelector("#main-content"),
     home: document.querySelector("#home"),
     studio: document.querySelector("#studio"),
     films: document.querySelector("#films"),
-    login: document.querySelector("#login"),
-    token: ""
+    loginLogout: document.querySelector("#login-logout"),
+    token: "",
+    userName: ""
 };
 
-/* LOGIN */
 
-
-
-async function loginUser (){
-    let loginBtn = document.querySelector('#login-submit');
-
-    loginBtn.addEventListener('click', async function(e){
-        e.preventDefault();
-
-        let error = document.querySelector("#error-login");
-        if(error !== null)
-        {
-            error.remove();
-        }
-
-        let username = document.querySelector('#username-input').value;
-        let password = document.querySelector('#password-input').value;
-
-        let response = await fetch('api/Users/authenticate', {
-            method: 'POST',
-            body: JSON.stringify({
-                UserName: username,
-                Password: password
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            }
-        })
-
-        let userData = await response.json();
-        app.token = userData.token;
-        
-        if(app.token === undefined)
-        {
-            let mainLogin = document.querySelector('#main-login');
-            mainLogin.insertAdjacentHTML('beforeend', '\
-            <p id="error-login">Användarnamn eller lösenord är fel</p>\
-            ');
-        }
-
-        console.log("app.token", app.token);
-        localStorage.setItem("userToken", app.token);
-        
-    });
-}
-
-async function showLoginPage () {
-    app.login.addEventListener('click', function(){
-    
-        app.mainContent.innerText = '';
-
-        app.mainContent.insertAdjacentHTML('beforeend', '\
-        <div id="main-login">\
-            <h3>Logga in</h3>\
-            <input type="text" id="username-input" placeholder="Användarnamn">\
-            <input type="password" id="password-input" placeholder="Lösenord"><br>\
-            <button id="login-submit" type="button">Logga in</button>\
-        </div>');
-
-        loginUser();
-    });
-}
-
-showLoginPage();
+checkIfLoggedIn();
+runHomePage();
+runLoginPage();
 
 
 
