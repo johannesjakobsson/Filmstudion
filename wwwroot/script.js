@@ -10,7 +10,8 @@ export const app = {
     rentedFilms: document.querySelector("#rented-films"),
     loginLogout: document.querySelector("#login-logout"),
     token: "",
-    userName: ""
+    userName: "",
+    studioId:""
 };
 
 
