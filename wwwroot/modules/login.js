@@ -29,28 +29,35 @@ async function loginUser (){
             }
         })
 
-        let userData = await response.json();
-        app.token = userData.token;
-        app.userName = userData.userName;
-        app.studioId = userData.filmStudio.filmStudioId;
-        console.log(userData);
-        console.log(app.studioId);
-        if(app.token === undefined) // Kontroller om det är filmstudio eller admin också?
+        if(response.status != 200)
         {
             let mainLogin = document.querySelector('#main-login');
             mainLogin.insertAdjacentHTML('beforeend', '\
             <p id="error-login">Användarnamn eller lösenord är fel</p>\
             ');
-        }
-        else
-        {
-            localStorage.setItem('userToken', app.token);
-            localStorage.setItem('userName', app.userName);
-            localStorage.setItem('studioId', app.studioId);
-            welcome(userData.userName);
-            logoutButton();
-        }       
-        
+        }else{
+            
+            let userData = await response.json();
+ 
+            if(userData.role == "Admin")
+            {
+                let mainLogin = document.querySelector('#main-login');
+                mainLogin.insertAdjacentHTML('beforeend', '\
+                <p id="error-login">Användarnamn eller lösenord är fel</p>\
+                ');
+            }
+            else
+            {   
+                app.token = userData.token;
+                app.userName = userData.userName;
+                app.studioId = userData.filmStudio.filmStudioId;
+                localStorage.setItem('userToken', app.token);
+                localStorage.setItem('userName', app.userName);
+                localStorage.setItem('studioId', app.studioId);
+                welcome(userData.userName);
+                logoutButton();
+            }    
+        } 
     });
 }
 
