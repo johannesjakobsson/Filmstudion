@@ -30,6 +30,13 @@
     padding: 5px;
 }
 
+/*  FILMER */
+.film {
+    margin: 3px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
 /* LOGIN */
 #error-login{
     color: red;
