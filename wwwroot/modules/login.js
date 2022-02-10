@@ -32,8 +32,9 @@ async function loginUser (){
         let userData = await response.json();
         app.token = userData.token;
         app.userName = userData.userName;
+        app.studioId = userData.filmStudio.filmStudioId;
         console.log(userData);
-        console.log(app.token);
+        console.log(app.studioId);
         if(app.token === undefined) // Kontroller om det är filmstudio eller admin också?
         {
             let mainLogin = document.querySelector('#main-login');
@@ -45,6 +46,7 @@ async function loginUser (){
         {
             localStorage.setItem('userToken', app.token);
             localStorage.setItem('userName', app.userName);
+            localStorage.setItem('studioId', app.studioId);
             welcome(userData.userName);
             logoutButton();
         }       
@@ -58,9 +60,11 @@ async function logoutButton() {
     {
         localStorage.removeItem('userToken');
         localStorage.removeItem('userName');
+        localStorage.removeItem('studioId');
         app.token = '';
         app.userName = '';
-        homePage();
+        app.studioId = '';
+        runLoginPage();
         app.loginLogout.innerHTML = "Logga in";
     });
 }
@@ -69,6 +73,7 @@ export async function checkIfLoggedIn(){
     {
         app.userName = localStorage.getItem('userName');
         app.token = localStorage.getItem('userToken');
+        app.studioId = localStorage.getItem('studioId');
         welcome(app.userName);
         logoutButton();
     } else{

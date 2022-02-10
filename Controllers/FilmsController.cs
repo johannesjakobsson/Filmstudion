@@ -168,7 +168,7 @@ namespace Filmstudion.Controllers
 
                 _filmStudioRepository.RentAFilm(studio, copy);
 
-                return Ok(new { Rent = "Successful"}); // Skicka tillbaka annat svar?
+                return Ok(new { message = "Successful"}); // Skicka tillbaka annat svar?
 
             }
             catch (Exception ex)

@@ -28,13 +28,13 @@ export async function runAvailableFilms(){
             for(const film of filmData)
             {
                 let isAvailable = "Nej";
-                let filmCopyId;
+                //let filmCopyId; // bort?
                 for(const filmcopy of film.filmCopies)
                 {
                     if(filmcopy.rentedOut === false)
                     {
                         isAvailable = "Ja";
-                        filmCopyId = filmcopy.filmCopyId;
+                        //filmCopyId = filmcopy.filmCopyId; // bort?
                         break;
                     }
                 }
@@ -49,14 +49,38 @@ export async function runAvailableFilms(){
                     <div>Ledig: ${isAvailable}</div>
                 </div>`);
 
+                let rentButton = document.createElement('button');
                 if(isAvailable === "Ja")
                 {
+                    rentButton.id = `filmBtn${film.filmId}`;
+                    rentButton.innerText = 'Låna';
                     let filmDiv = document.querySelector(`#film${film.filmId}`);
-                    filmDiv.insertAdjacentHTML('beforeend', `\
-                    <button id="filmCopy${filmCopyId}">Låna</button>
-                    `);
+                    filmDiv.insertAdjacentElement('beforeend', rentButton); 
                 }
+                rentFilm(film.filmId, rentButton);
             }
+        }
+    });
+}
+
+async function rentFilm(filmId, button)
+{
+    button.addEventListener('click', async function(){
+        console.log(app.studioId);
+        let response = await fetch(`api/films/rent?id=${filmId}&studioid=${app.studioId}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + app.token,
+                'Content-type': 'application/json; charset=UTF-8'}
+        });
+        let data = await response.json();
+        console.log(data);
+        app.mainContent.innerHTML = '';
+        if(data.message == "Successful")
+        {
+            app.mainContent.innerText = 'Vad härligt, du har nu lånat filmen!';
+        }else {
+            app.mainContent.innerText = data.message;
         }
     });
 }
