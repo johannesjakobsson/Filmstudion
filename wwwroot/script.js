@@ -1,7 +1,11 @@
+//script.js
+
 import { runLoginPage, checkIfLoggedIn } from './modules/login.js';
 import { runHomePage } from './modules/home.js';
 import { runAvailableFilms } from './modules/availableFilms.js';
+import { runRentedFilms } from './modules/rentedFilms.js';
 
+//global variables
 export const app = {
     menu: document.querySelector("#menu"),
     mainContent: document.querySelector("#main-content"),
@@ -14,10 +18,24 @@ export const app = {
     studioId:""
 };
 
+//global function
+export async function getData(url){
+    let response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + app.token,
+            'Content-type': 'application/json; charset=UTF-8'}
+    });
+    
+    let data = await response.json();
+    return data;
+}
 
+//run functions
 checkIfLoggedIn();
 runHomePage();
 runAvailableFilms();
+runRentedFilms();
 runLoginPage();
 
 

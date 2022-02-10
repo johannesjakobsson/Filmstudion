@@ -1,3 +1,5 @@
+//home.js
+
 import { app } from '../script.js';
 
 export function homePage() {

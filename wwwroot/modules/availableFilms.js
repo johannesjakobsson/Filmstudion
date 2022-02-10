@@ -1,6 +1,7 @@
 // availableFilms.js
 
-import { app } from '../script.js';
+import { app, getData } from '../script.js';
+import { rentFilm } from './rentFilm.js'
 
 export async function runAvailableFilms(){
     app.availableFilms.addEventListener('click', async function(){
@@ -10,15 +11,8 @@ export async function runAvailableFilms(){
         {
             app.mainContent.innerHTML = "Du måste vara inloggad för att se denna sida";
         }else{
-
-            let response = await fetch('api/films', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + app.token,
-                    'Content-type': 'application/json; charset=UTF-8'}
-            });
             
-            let filmData = await response.json();
+            let filmData = await getData('api/films');
             console.log(filmData);
 
             app.mainContent.insertAdjacentHTML('beforeend', `\
@@ -59,28 +53,6 @@ export async function runAvailableFilms(){
                 }
                 rentFilm(film.filmId, rentButton);
             }
-        }
-    });
-}
-
-async function rentFilm(filmId, button)
-{
-    button.addEventListener('click', async function(){
-        console.log(app.studioId);
-        let response = await fetch(`api/films/rent?id=${filmId}&studioid=${app.studioId}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + app.token,
-                'Content-type': 'application/json; charset=UTF-8'}
-        });
-        let data = await response.json();
-        console.log(data);
-        app.mainContent.innerHTML = '';
-        if(data.message == "Successful")
-        {
-            app.mainContent.innerText = 'Vad härligt, du har nu lånat filmen!';
-        }else {
-            app.mainContent.innerText = data.message;
         }
     });
 }

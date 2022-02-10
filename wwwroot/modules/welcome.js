@@ -1,3 +1,5 @@
+//welcome.js
+
 import { app } from '../script.js';
 
 export function welcome(userName) {
