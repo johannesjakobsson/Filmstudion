@@ -3,7 +3,7 @@ import { app } from '../script.js';
 export function homePage() {
     app.mainContent.innerHTML = '';
     app.mainContent.insertAdjacentHTML('beforeend', `\
-    <div id="home-main">
+    <div id="main-home">
         Välkommen till SFF:s filmhyrar-sida!
     </div>`);
 }

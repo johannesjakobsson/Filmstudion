@@ -7,8 +7,7 @@ import { homePage } from './home.js';
 async function loginUser (){
     let loginBtn = document.querySelector('#login-submit');
 
-    loginBtn.addEventListener('click', async function(e){
-        e.preventDefault();
+    loginBtn.addEventListener('click', async function(){
 
         let error = document.querySelector("#error-login");
         if(error !== null)
@@ -35,7 +34,7 @@ async function loginUser (){
         app.userName = userData.userName;
         console.log(userData);
         console.log(app.token);
-        if(app.token === undefined)
+        if(app.token === undefined) // Kontroller om det är filmstudio eller admin också?
         {
             let mainLogin = document.querySelector('#main-login');
             mainLogin.insertAdjacentHTML('beforeend', '\
@@ -59,6 +58,8 @@ async function logoutButton() {
     {
         localStorage.removeItem('userToken');
         localStorage.removeItem('userName');
+        app.token = '';
+        app.userName = '';
         homePage();
         app.loginLogout.innerHTML = "Logga in";
     });

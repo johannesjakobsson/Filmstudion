@@ -1,12 +1,13 @@
 import { runLoginPage, checkIfLoggedIn } from './modules/login.js';
 import { runHomePage } from './modules/home.js';
+import { runAvailableFilms } from './modules/availableFilms.js';
 
 export const app = {
     menu: document.querySelector("#menu"),
     mainContent: document.querySelector("#main-content"),
     home: document.querySelector("#home"),
-    studio: document.querySelector("#studio"),
-    films: document.querySelector("#films"),
+    availableFilms: document.querySelector("#available-films"),
+    rentedFilms: document.querySelector("#rented-films"),
     loginLogout: document.querySelector("#login-logout"),
     token: "",
     userName: ""
@@ -15,6 +16,7 @@ export const app = {
 
 checkIfLoggedIn();
 runHomePage();
+runAvailableFilms();
 runLoginPage();
 
 
