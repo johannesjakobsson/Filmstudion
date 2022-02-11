@@ -11,7 +11,7 @@
 **- Rekommenderat är att ha exempelvis Postman för att navigera och testa de olika åtkomstpunkterna**  
 
 Films  
-Film innehåller detaljer om en film i SFFs bibliotek  
+Film innehåller detaljer om en film i SFFs bibliotek.  
 PUT - /api​/Films - Autentiserad admin kan skapa en ny film i API:et, för mer information om vilken data som ska matas in, gå vidare in på swagger-länken ovanför.  
 GET - /api​/Films - Hämtar alla filmer, beroende på roll får du mer eller mindre information.  
 GET - /api​/Films​/{id} - Hämtar en specifik film beroende på ID, beroende på roll får du mer eller mindre information.  
@@ -27,7 +27,7 @@ GET - /api​/FilmStudios - Hämtar alla filmstudios, beroende på roll får du 
 GET - /api​/FilmStudios​/{id} - Hämtar en specifik filmstudio beroende på ID, beroende på roll får du mer eller mindre information.  
 
 MyStudio  
-Hämtar information om din egen filmstudio om du är authentiserad  
+Hämtar information om din egen filmstudio om du är authentiserad.  
 GET - /api​/MyStudio​/rentals - Autentiserad filmstudio hämtar alla lånade filmexemplar.  
 
 Users  
