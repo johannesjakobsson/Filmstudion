@@ -12,6 +12,6 @@ namespace Filmstudion.Resources
         public string Country { get; set; }
         public string Director { get; set; }
         [JsonIgnore]
-        public IEnumerable<FilmCopy> FilmCopies { get; set; }
+        public List<FilmCopy> FilmCopies { get; set; }
     }
 }

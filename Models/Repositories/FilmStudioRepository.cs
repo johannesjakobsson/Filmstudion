@@ -60,6 +60,7 @@ namespace Filmstudion.Models
             filmStudioUser.PasswordHash = BCryptNet.HashPassword(model.Password);
 
             var filmStudio = _mapper.Map<FilmStudio>(model);
+            filmStudio.RentedFilmCopies = new List<FilmCopy>();
 
             //save filmstudio
             _context.FilmStudios.Add(filmStudio); 
@@ -89,22 +90,10 @@ namespace Filmstudion.Models
         {
             filmCopy.FilmStudioId = studio.FilmStudioId;
             filmCopy.RentedOut = true;
-
-            if(studio.RentedFilmCopies == null)
-            {
-                List<FilmCopy> filmCopyList = new List<FilmCopy>();
-                filmCopyList.Add(filmCopy);
-                studio.RentedFilmCopies = filmCopyList;
-            }
-            else
-            {
-                studio.RentedFilmCopies.Add(filmCopy);
-            }
+            studio.RentedFilmCopies.Add(filmCopy);
             _context.FilmCopies.Update(filmCopy);
             _context.FilmStudios.Update(studio);
             _context.SaveChanges();
-
-
         }
         public void ReturnAFilm(FilmStudio studio, FilmCopy filmCopy)
         {

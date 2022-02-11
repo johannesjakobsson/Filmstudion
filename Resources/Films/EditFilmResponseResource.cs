@@ -12,6 +12,6 @@ namespace Filmstudion.Resources
         public int ReleaseYear { get; set; }
         public string Country { get; set; }
         public string Director { get; set; }
-        public IEnumerable<FilmCopy> FilmCopies { get; set; }
+        public List<FilmCopy> FilmCopies { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace Filmstudion.Controllers
                 var films = _filmRepository.AllFilms;
                 foreach(var film in films )
                 {
-                    film.FilmCopies = _filmCopyRepository.GetFilmCopies(film.FilmId).ToArray();
+                    film.FilmCopies = _filmCopyRepository.GetFilmCopies(film.FilmId).ToList();
                 }
 
                 if(user == null)
@@ -100,7 +100,7 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUserWithoutException(username);
                 var film = _filmRepository.GetFilmById(id);
-                film.FilmCopies = _filmCopyRepository.GetFilmCopies(film.FilmId).ToArray();
+                film.FilmCopies = _filmCopyRepository.GetFilmCopies(film.FilmId).ToList();
 
                 if(user == null)
                 {
@@ -132,7 +132,7 @@ namespace Filmstudion.Controllers
 
                 var newFilm = _filmRepository.EditFilmById(id, model);
                 var result = _mapper.Map<EditFilmResponseResource>(newFilm);
-                result.FilmCopies = _filmCopyRepository.GetFilmCopies(id).ToArray();
+                result.FilmCopies = _filmCopyRepository.GetFilmCopies(id).ToList();
                 return Ok(result);
                 
             }

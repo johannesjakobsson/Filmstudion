@@ -19,6 +19,6 @@ namespace Filmstudion.Resources
         [Required]
         public int NumberOfCopies { get; set; }
         [JsonIgnore]
-        public IEnumerable<FilmCopy> FilmCopies { get; set; }
+        public List<FilmCopy> FilmCopies { get; set; }
     }
 }
