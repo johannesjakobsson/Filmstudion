@@ -48,19 +48,17 @@ namespace Filmstudion.Models
 
         public void DeleteCopies(int newCopies, IEnumerable<FilmCopy> currentCopies) 
         {
-            // BÖR ÄVEN KONTROLLER ATT MAN INTE TAR BORT UTLÅNADE KOPIOR
             _logger.LogInformation("Deleting old film-copies");
 
-            var counter = currentCopies.ToList().Count();
-            foreach(var copy in currentCopies)
-            {   
-                
-                if(counter <= newCopies)
+            var currentCopiesArray = currentCopies.ToArray();
+            var counter = currentCopiesArray.Length;
+            for(int i = counter - 1; i >= newCopies; i--)
+            {
+                if(isCopyRentedOut(currentCopiesArray[i]))
                 {
-                    break;
+                    continue;
                 }
-                counter--;
-                _context.Remove(copy);
+                _context.Remove(currentCopiesArray[i]);
                 _context.SaveChanges();
             }
         }
@@ -131,6 +129,18 @@ namespace Filmstudion.Models
             return _context.FilmCopies
                 .Where(f => f.FilmId == filmId)
                 .FirstOrDefault(fc => fc.FilmStudioId == studioId);
+        }
+
+        private bool isCopyRentedOut(FilmCopy copy)
+        {
+            if(copy.RentedOut == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
