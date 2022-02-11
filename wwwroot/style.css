@@ -2,6 +2,10 @@
     font-family:Verdana, Geneva, Tahoma, sans-serif; 
 }
 
+body {
+    background-color: rgb(240, 252, 255);
+}
+
 /* HEADER */
 #header-img {
     padding: 2px;
@@ -10,7 +14,36 @@
 }
 #header {
     display: flex;
+    box-shadow: 0 2px 4px #888888;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 3px;
+}
+
+/* MENU */
+#menu {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 11px;
+}
+.menu-item {
     border: 1px solid black;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgb(116, 116, 116);
+    border-radius: 3px;
+    color: white;
+}
+.menu-item:hover {
+    background-color: rgb(216, 216, 216);
+    color: black;
+}
+.no-select { 
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 /* BODY */
@@ -21,20 +54,53 @@
 .body-item {
     margin: 5px;
 }
-#menu {
-    display: flex;
-    justify-content: space-around;
-}
-.menu-item {
-    border: 1px solid black;
+
+/* LOGIN */
+#main-login{
+    margin: 3px;
     padding: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px #888888;
+    border-radius: 3px;
+    text-align: center;
+}
+#login-submit{
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgb(116, 116, 116);
+    border-radius: 3px;
+    color: white;
+}
+#login-submit:hover{
+    background-color: rgb(216, 216, 216);
+    color: black;
 }
 
 /*  FILMER */
 .film {
     margin: 3px;
+    margin-bottom: 6px;
     padding: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px #888888;
+    border-radius: 3px;
+}
+.film button {
     border: 1px solid black;
+    margin: 2px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgb(116, 116, 116);
+    border-radius: 3px;
+    color: white;
+}
+.film button:hover {
+    border: 2px solid rgb(0, 0, 0);
+    background-color: rgb(216, 216, 216);
+    color: black;
 }
 
 /* LOGIN */
@@ -44,7 +110,8 @@
 
 /* FOOTER */
 footer {
-    background-color: #fc8200;
+    background-color: rgb(247, 247, 247);
+    box-shadow: 0 2px 4px #888888;
     text-align: center;
     padding: 2px;
     position: fixed;
@@ -53,3 +120,36 @@ footer {
     width: 100%;
 }
 /* -------------------------------- */
+
+/* STÖRRE SKÄRM */
+@media screen and (min-width: 880px) {
+    html {
+        max-width: 865px;
+        margin:0 auto;
+    }
+    .header-nav-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #header{
+        width: 48.5%;
+        margin: 5px;
+    }
+    #menu{
+        width: 48.5%;
+    }
+    .menu-item {
+        margin: 5px;
+        padding: 10px;
+    }
+    #main-films {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .film{
+        width: 400px;
+    }
+}

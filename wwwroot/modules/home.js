@@ -6,7 +6,7 @@ export function homePage() {
     app.mainContent.innerHTML = '';
     app.mainContent.insertAdjacentHTML('beforeend', `\
     <div id="main-home">
-        Välkommen till SFF:s filmhyrar-sida!
+        Välkommen till SFF:s filmlånar-sida!
     </div>`);
 }
 
