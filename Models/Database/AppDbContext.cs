@@ -18,23 +18,104 @@ namespace Filmstudion.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            // FILMER
             modelBuilder.Entity<Film>().HasData(new Film 
             { 
                 FilmId = 1, 
-                Name = "Hej", 
-                Director = "Hans", 
-                Country = "Sweden", 
-                ReleaseYear = 1991, 
+                Name = "Avatar", 
+                Director = "James Cameron", 
+                Country = "United States", 
+                ReleaseYear = 2009, 
             });
-
-            modelBuilder.Entity<FilmStudio>().HasData(new FilmStudio 
+                        modelBuilder.Entity<Film>().HasData(new Film 
             { 
-                FilmStudioId = 1,
-                FilmStudioName = "FilmStudio-Gotland",
-                FilmStudioCity = "Visby",
-                Email = "Gotland@Gotland.se"
+                FilmId = 2, 
+                Name = "Law Abiding Citizen", 
+                Director = "F. Gary Gray", 
+                Country = "United States", 
+                ReleaseYear = 2009, 
+            });
+                        modelBuilder.Entity<Film>().HasData(new Film 
+            { 
+                FilmId = 3, 
+                Name = "Warrior", 
+                Director = "Gavin O'Connor", 
+                Country = "United States", 
+                ReleaseYear = 2011, 
+            });
+                        modelBuilder.Entity<Film>().HasData(new Film 
+            { 
+                FilmId = 4, 
+                Name = "The Wolf Of Wallstreet", 
+                Director = "Martin Scorsese", 
+                Country = "United States", 
+                ReleaseYear = 2013, 
             });
 
+            //Filmcopy
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 1, 
+                FilmId = 1, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 2, 
+                FilmId = 1, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 3, 
+                FilmId = 1, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 4, 
+                FilmId = 2, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 5, 
+                FilmId = 2, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 6, 
+                FilmId = 3, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 7, 
+                FilmId = 4, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 8, 
+                FilmId = 4, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
+            modelBuilder.Entity<FilmCopy>().HasData(new FilmCopy
+            { 
+                FilmCopyId = 9, 
+                FilmId = 4, 
+                RentedOut = false, 
+                FilmStudioId = 0,
+            });
         }
     }
 }
