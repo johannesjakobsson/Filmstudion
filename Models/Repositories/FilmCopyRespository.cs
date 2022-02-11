@@ -19,8 +19,6 @@ namespace Filmstudion.Models
             _mapper = mapper;
             _logger = logger;
         }
-
-        public IEnumerable<FilmCopy> AllFilmCopys { get { return _context.FilmCopies; } }
         public void CreateCopies(int filmId, int filmCopies)
         {
             _logger.LogInformation("Adding new film-copies");
@@ -68,7 +66,7 @@ namespace Filmstudion.Models
             return _context.FilmCopies.Where(fc => fc.FilmId == filmId);
         }
 
-        public IEnumerable<FilmCopy> EditFilmCopies( int id, EditFilmResource model)
+        public void EditFilmCopies( int id, EditFilmCopiesResource model)
         {
             var filmCopies = GetFilmCopies(id);
 
@@ -90,9 +88,6 @@ namespace Filmstudion.Models
                         CreateCopies(id, model.NumberOfCopies, numberOfCopies);
                     }
                 }
-
-            var newFilmCopies = GetFilmCopies(id);
-            return newFilmCopies;
         }
 
         public bool isFilmCopyAvailable(int filmId)

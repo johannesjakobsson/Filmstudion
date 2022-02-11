@@ -37,8 +37,8 @@ namespace Filmstudion.Controllers
                 if(user.Role != "Filmstudio") return Unauthorized("Can't find a filmstudio in this account");
 
                 var filmstudio = _filmStudioRepository.GetFilmStudioById(user.FilmStudioId);
-
-                return Ok(filmstudio.RentedFilmCopies.ToArray());
+                var result = _mapper.Map<FilmCopyResponseResource[]>(filmstudio.RentedFilmCopies);
+                return Ok(result);
             }
             catch (Exception ex)
             {
