@@ -7,12 +7,26 @@ export async function runAvailableFilms(){
     app.availableFilms.addEventListener('click', async function(){
         app.mainContent.innerHTML = '';
 
+        let filmData = await getData('api/films');
         if(app.token === "")
         {
-            app.mainContent.innerHTML = "Du måste vara inloggad för att se denna sida";
-        }else{
+            app.mainContent.insertAdjacentHTML('beforeend', `\
+            <div id="main-films">
+             </div>`);
             
-            let filmData = await getData('api/films');
+            for(const film of filmData)
+            {
+                
+                let mainFilm = document.querySelector('#main-films');
+                mainFilm.insertAdjacentHTML('beforeend', `\
+                <div id="film${film.filmId}" class="film">\
+                    <div>Namn: ${film.name}</div>
+                    <div>Regissör: ${film.director}</div>
+                    <div>Land: ${film.country}</div>
+                    <div>Årtal: ${film.releaseYear}</div>
+                </div>`);
+            }
+        }else{           
 
             app.mainContent.insertAdjacentHTML('beforeend', `\
             <div id="main-films">
