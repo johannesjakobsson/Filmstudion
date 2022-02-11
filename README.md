@@ -27,7 +27,7 @@ GET - /api​/FilmStudios - Hämtar alla filmstudios, beroende på roll får du 
 GET - /api​/FilmStudios​/{id} - Hämtar en specifik filmstudio beroende på ID, beroende på roll får du mer eller mindre information.  
 
 MyStudio  
-Hämtar information om din egen filmstudio om du är authentiserad.  
+Hämtar information om sin egena filmstudio om man är autentiserad.  
 GET - /api​/MyStudio​/rentals - Autentiserad filmstudio hämtar alla lånade filmexemplar.  
 
 Users  
