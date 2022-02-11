@@ -13,7 +13,6 @@ export async function runAvailableFilms(){
         }else{
             
             let filmData = await getData('api/films');
-            console.log(filmData);
 
             app.mainContent.insertAdjacentHTML('beforeend', `\
             <div id="main-films">
@@ -22,13 +21,11 @@ export async function runAvailableFilms(){
             for(const film of filmData)
             {
                 let isAvailable = "Nej";
-                //let filmCopyId; // bort?
                 for(const filmcopy of film.filmCopies)
                 {
                     if(filmcopy.rentedOut === false)
                     {
                         isAvailable = "Ja";
-                        //filmCopyId = filmcopy.filmCopyId; // bort?
                         break;
                     }
                 }

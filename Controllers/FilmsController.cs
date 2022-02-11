@@ -62,7 +62,7 @@ namespace Filmstudion.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetFilms() //BEHÖVER LÄGGA TILL SÅ ATT FILMCOPIES ÄR SYNLIGA I ANROPET
+        public IActionResult GetFilms()
         {
             try
             {
@@ -128,7 +128,7 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUser(username);
 
-                if(!user.IsAdmin) return Unauthorized(new {message = "Only admins allowed"});
+                if(!user.IsAdmin) return Unauthorized("Only admins allowed");
 
                 var newFilm = _filmRepository.EditFilmById(id, model);
                 var result = _mapper.Map<EditFilmResponseResource>(newFilm);
@@ -150,18 +150,18 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUser(username);
 
-                if(user.Role != "Filmstudio") return Unauthorized(new {message = "Only FilmStudios is allowed to rent"});
+                if(user.Role != "Filmstudio") return Unauthorized("Only FilmStudios is allowed to rent");
 
-                if(user.FilmStudioId != studioId) return Unauthorized(new {message = "Filmstudio-ID does not match this users Key/Bearer-token"});
+                if(user.FilmStudioId != studioId) return Unauthorized("Filmstudio-ID does not match this users Key/Bearer-token");
 
                 var filmToRent = _filmRepository.GetFilmById(id);
 
-                if(filmToRent == null) return Conflict( new {message = "No film with that ID found"});
+                if(filmToRent == null) return Conflict("No film with that ID found");
 
-                if(!_filmCopyRepository.isFilmCopyAvailable(id)) return Conflict( new {message = "No copy available"});
+                if(!_filmCopyRepository.isFilmCopyAvailable(id)) return Conflict("No copy available");
 
                 if(_filmCopyRepository.isFilmRentedByThisFilmStudio(id, studioId)) 
-                    return this.StatusCode(StatusCodes.Status403Forbidden, new {message = "Film is already rented by this filmstudio"});
+                    return this.StatusCode(StatusCodes.Status403Forbidden, "Film is already rented by this filmstudio");
 
                 var copy =  _filmCopyRepository.GetAvailableFilmCopy(id);
                 var studio = _filmStudioRepository.GetFilmStudioById(studioId);
@@ -184,17 +184,17 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUser(username);
 
-                if(user.Role != "Filmstudio") return Unauthorized(new {message = "Only FilmStudios is allowed to return"});
+                if(user.Role != "Filmstudio") return Unauthorized("Only FilmStudios is allowed to return");
 
-                if(user.FilmStudioId != studioId) return Unauthorized(new {message = "Filmstudio-ID does not match this users Key/Bearer-token"});
+                if(user.FilmStudioId != studioId) return Unauthorized("Filmstudio-ID does not match this users Key/Bearer-token");
 
                 var filmToReturn = _filmRepository.GetFilmById(id);
 
-                if(filmToReturn == null) return Conflict( new {message = "No film with that ID found"});
+                if(filmToReturn == null) return Conflict("No film with that ID found");
 
                 var copy =  _filmCopyRepository.GetRentedFilmCopy(id, studioId);
 
-                if(copy == null) return Conflict(new {message = "No film-copy with that ID rented"});
+                if(copy == null) return Conflict("No film-copy with that ID rented");
 
                 var studio = _filmStudioRepository.GetFilmStudioById(studioId);
 
