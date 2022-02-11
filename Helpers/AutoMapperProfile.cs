@@ -19,6 +19,7 @@ namespace Filmstudion.Helpers
             CreateMap<Film, FilmResponseResource>();
             CreateMap<EditFilmResource, Film>().ReverseMap();
             CreateMap<Film, EditFilmResponseResource>();
+            CreateMap<FilmCopy, FilmCopyResponseResource>();
         }
     }
 }

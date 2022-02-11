@@ -87,16 +87,21 @@ namespace Filmstudion.Controllers
 
                 if(user == null)
                 {
-                    return Ok(_mapper.Map<FilmStudiosResponseResource>(studio));
+                    var result = _mapper.Map<FilmStudiosResponseResource>(studio); 
+                    FilmStudiosResponseResource[] filmstudioArray = {result}; // sista minuten ändring för att kravet vill ha tillbaka en array med objekt?
+                    return Ok(filmstudioArray);
                 }
 
                 if(user.FilmStudioId == id || user.IsAdmin)
                 {
-                    return Ok(studio);
+                    FilmStudio[] filmstudioArray = {studio}; // sista minuten ändring för att kravet vill ha tillbaka en array med objekt?
+                    return Ok(filmstudioArray);
                 }
                 else if (!user.IsAdmin)
                 {
-                    return Ok(_mapper.Map<FilmStudiosResponseResource>(studio));
+                    var result = _mapper.Map<FilmStudiosResponseResource>(studio);
+                    FilmStudiosResponseResource[] filmstudioArray = {result}; // sista minuten ändring för att kravet vill ha tillbaka en array med objekt?
+                    return Ok(filmstudioArray);
                 }
 
                 return BadRequest("Error getting filmstudio");

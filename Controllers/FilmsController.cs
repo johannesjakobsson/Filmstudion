@@ -120,7 +120,7 @@ namespace Filmstudion.Controllers
             }
         }
 
-        [HttpPatch("{id:int}")]
+        [HttpPut("{id:int}")]
         public IActionResult EditFilm(int id, EditFilmResource model)
         {
             try
@@ -132,6 +132,27 @@ namespace Filmstudion.Controllers
 
                 var newFilm = _filmRepository.EditFilmById(id, model);
                 var result = _mapper.Map<EditFilmResponseResource>(newFilm);
+                result.FilmCopies = _filmCopyRepository.GetFilmCopies(id).ToList();
+                return Ok(result);
+                
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        } 
+        [HttpPatch("{id:int}")]
+        public IActionResult EditFilmCopies(int id, EditFilmCopiesResource model)
+        {
+            try
+            {
+                var username = User.Identity.Name;
+                var user = _userRepository.GetUser(username);
+
+                if(!user.IsAdmin) return Unauthorized("Only admins allowed");
+
+                _filmCopyRepository.EditFilmCopies(id, model);
+                var result = _filmRepository.GetFilmById(id);
                 result.FilmCopies = _filmCopyRepository.GetFilmCopies(id).ToList();
                 return Ok(result);
                 

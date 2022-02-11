@@ -62,11 +62,11 @@ namespace Filmstudion.Models
                 throw new Exception("Film not found");
             }
 
-            var newFilmCopies = _filmCopyRepository.EditFilmCopies(id, model);
+            //var newFilmCopies = _filmCopyRepository.EditFilmCopies(id, model);
 
             var newFilm = _mapper.Map(model,oldFilm);
             newFilm.FilmId = id;
-            newFilm.FilmCopies = newFilmCopies.ToList();
+            newFilm.FilmCopies = _filmCopyRepository.GetFilmCopies(model.FilmId).ToList();
             
             _context.Films.Update(newFilm);
             _context.SaveChanges();
