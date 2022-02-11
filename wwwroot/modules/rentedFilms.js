@@ -15,10 +15,8 @@ export async function runRentedFilms(){
 
             const rentedFilmData = await getData('api/mystudio/rentals');
             const filmData = await getData('api/films');
-            console.log(rentedFilmData);
-            console.log(filmData);
 
-            if(rentedFilmData.message === "You don't have any rented movies!")
+            if(rentedFilmData.length == 0)
             {
                 app.mainContent.innerHTML = "Här var det tomt. Dags att hyra filmer!";
             } else {
@@ -55,10 +53,6 @@ export async function runRentedFilms(){
                     }
                 } 
             }
-
-
-
-
         }
     });
 }

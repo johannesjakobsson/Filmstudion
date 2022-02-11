@@ -12,14 +12,13 @@ export async function returnFilm(filmId, returnButton)
                 'Authorization': 'Bearer ' + app.token,
                 'Content-type': 'application/json; charset=UTF-8'}
         });
-        let data = await response.json();
-        console.log(data);
+        
         app.mainContent.innerHTML = '';
-        if(data.message == "Successful")
+        if(response.status == 200)
         {
             app.mainContent.innerText = 'Tack så mycket, du har nu lämnat tillbaka filmen!';
         }else {
-            app.mainContent.innerText = data.message;
+            app.mainContent.innerText = 'Något gick snett, testa igen';
         }
     });
 }

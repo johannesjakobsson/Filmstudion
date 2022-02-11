@@ -34,14 +34,9 @@ namespace Filmstudion.Controllers
                 var username = User.Identity.Name;
                 var user = _userRepository.GetUser(username);
 
-                if(user.Role != "Filmstudio") return Unauthorized(new {message = "You don't have access to this studios rentals"});
+                if(user.Role != "Filmstudio") return Unauthorized("Can't find a filmstudio in this account");
 
                 var filmstudio = _filmStudioRepository.GetFilmStudioById(user.FilmStudioId);
-
-                if(filmstudio.RentedFilmCopies.ToArray().Length == 0) 
-                {
-                    return Ok(new {message = "You don't have any rented movies!"});
-                }
 
                 return Ok(filmstudio.RentedFilmCopies.ToArray());
             }
