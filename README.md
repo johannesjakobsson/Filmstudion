@@ -12,7 +12,7 @@
 9. Rekommenderat är att ha exempelvis Postman för att navigera och testa de olika åtkomstpunkterna
 
 **ÅTKOMSTPUNKTER**  
-Films  
+**Films**  
 Film innehåller detaljer om en film i SFFs bibliotek.  
 PUT - /api​/Films - Autentiserad admin kan skapa en ny film i API:et, för mer information om vilken data som ska matas in, gå vidare in på swagger-länken ovanför.  
 GET - /api​/Films - Hämtar alla filmer, beroende på roll får du mer eller mindre information.  
@@ -22,17 +22,17 @@ PATCH - /api​/Films​/{id} - Autentiserad admin har möjlighet att ändra ant
 POST - /api​/Films​/rent - Autentiserad filmstudio har möjlighet att låna en film.  
 POST - /api​/Films​/return - Autentiserad filmstudio har möjlighet att lämna tillbaka en film.  
 
-FilmStudios  
+**FilmStudios**  
 En studio representerar en registrerad filmstudio hos sff.  
 POST - /api​/FilmStudios​/register - Här har en filmstudio möjlighet att registrera sig, för mer information om vilken data som ska matas in, gå vidare in på swagger-länken ovanför.  
 GET - /api​/FilmStudios - Hämtar alla filmstudios, beroende på roll får du mer eller mindre information.  
 GET - /api​/FilmStudios​/{id} - Hämtar en specifik filmstudio beroende på ID, beroende på roll får du mer eller mindre information.  
 
-MyStudio  
+**MyStudio**  
 Hämtar information om sin egena filmstudio om man är autentiserad.  
 GET - /api​/MyStudio​/rentals - Autentiserad filmstudio hämtar alla lånade filmexemplar.  
 
-Users  
+**Users**  
 Hantering av användare.  
 POST - /api​/Users​/register - Här har en Admin möjlighet att registrera sig. För mer information om vilken data som ska matas in, gå vidare in på swagger-länken ovanför.  
 POST - /api​/Users​/authenticate - Här har registrerad användare möjlighet att autentisera sig och få en JWT-Bearer-Token för vidare autentisering. För mer information om vilken data som ska matas in, gå vidare in på swagger-länken ovanför.  
@@ -45,10 +45,13 @@ POST - /api​/Users​/authenticate - Här har registrerad användare möjlighe
 ## Tekniker
 * C#
 * ASP.NET Core
+* ASP.NET Core Identity
 * Entity Framework Core
 * REST-API
-* In Memory Database
-* JavaScript
+* Swagger UI
+* JSON Web Tokens
+* SQLite
+* JavaScript ink. moduler
 * Fetch-API
 * HTML
 * CSS
