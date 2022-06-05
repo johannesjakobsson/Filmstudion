@@ -49,7 +49,8 @@ POST - /api​/Users​/authenticate - Här har registrerad användare möjlighe
 * Entity Framework Core
 * REST-API
 * Swagger UI
-* JSON Web Tokens
+* Automapper
+* Jwt Bearer Tokens
 * SQLite
 * JavaScript ink. moduler
 * Fetch-API
