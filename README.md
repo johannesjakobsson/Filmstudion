@@ -11,7 +11,7 @@
 8. Vill du endast kontrollera API-åtkomstpunkterna så navigera in på **https://localhost:5001/swagger/index.html** för att se vidare dokumentation
 9. Rekommenderat är att ha exempelvis Postman för att navigera och testa de olika åtkomstpunkterna
 
-**ÅTKOMSTPUNKTER**
+**ÅTKOMSTPUNKTER**  
 Films  
 Film innehåller detaljer om en film i SFFs bibliotek.  
 PUT - /api​/Films - Autentiserad admin kan skapa en ny film i API:et, för mer information om vilken data som ska matas in, gå vidare in på swagger-länken ovanför.  
